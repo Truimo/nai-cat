@@ -60,8 +60,28 @@
         </div>
     </RightMenu>
     <div class="container">
-        <div>
-            总有一天人间日落和星光我只陪你看.
+        <div v-if="postList.length > 0">
+            <div class="p-3.5 bg-gray-100 border-b border-gray-200" v-for="(item, index) in postList" :key="index">
+                <div class="flex items-center">
+                    <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
+                        <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="浅小沫">
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-base text-blue-800">{{ item.username }}</p>
+                        <p class="text-xs text-gray-400">{{ item.time }}</p>
+                    </div>
+                </div>
+                <div class="mt-2 text-gray-900 text-base font-sans antialiased" v-html="item.content"></div>
+            </div>
+            <div class="p-3.5 bg-gray-100 active:bg-gray-300 transition" v-if="isEnd">
+                <p class="text-center text-xs text-gray-600">没有更多啦</p>
+            </div>
+            <div class="p-3.5 bg-gray-100 active:bg-gray-300 transition" @click="loadPost" v-else>
+                <p class="text-center text-xs text-gray-600">加载更多</p>
+            </div>
+        </div>
+        <div v-else class="p-3.5">
+            <p class="text-center text-xs text-gray-600">没有内容哇</p>
         </div>
     </div>
 </template>
@@ -82,7 +102,7 @@ export default {
                 name: '动态',
                 default: true
             },{
-                name: '栖村'
+                name: '更多'
             }
         ]
         let right_menu = ref(false)
@@ -96,11 +116,42 @@ export default {
             }
         }
 
+        const analysis = (content) => {
+            try {
+                content = content.replace(/\r\n/g, '<br/>')
+                content = content.replace(/\n/g, '<br/>')
+                content = content.replace(/\[CQ:.+\]/, '<i class="text-gray-400">NaN</i>')
+            } catch (e) {
+                console.log('解析出错')
+            }
+            return content
+        }
+
+        let page = 0
+        let isEnd = ref(false)
+        let postList = ref([])
+        const loadPost = () => {
+            fetch('https://req.truimo.com/yixi/post.php?num=20&str='+ (page * 20))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length < 1) {
+                        isEnd.value = true
+                        return
+                    }
+                    page++
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].content = analysis(data[i].content)
+                        postList.value.push(data[i])
+                    }
+                })
+        }
+        loadPost()
+
         const tog = e => {
           console.log(e)
         }
         return {
-            nav, right_menu, menu_scroll, menu_user_bg, tog
+            nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog
         }
     }
 }
