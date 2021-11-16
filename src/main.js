@@ -5,9 +5,9 @@ import store from './store'
 import './assets/tailwindcss.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faSearch,faPlus,faBars,faAngleRight,faCog} from '@fortawesome/free-solid-svg-icons'
+import {faSearch,faPlus,faBars,faAngleRight,faAngleLeft,faCog,faRedoAlt} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSearch, faPlus,faBars,faAngleRight,faCog)
+library.add(faSearch, faPlus,faBars,faAngleRight,faAngleLeft,faCog,faRedoAlt)
 
 createApp(App)
     .use(store)
