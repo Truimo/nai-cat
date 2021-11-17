@@ -12,21 +12,19 @@
             </div>
             <div class="pt-12">
                 <div class="m-3.5 bg-white rounded-md shadow-sm overflow-hidden">
-                    <p class="text-gray-500 text-xs border-gray-100 border-b px-2.5 py-2.5">音乐服务</p>
+                    <p class="text-gray-500 text-xs border-gray-100 border-b px-2.5 py-2.5">QQ群</p>
                     <ul class="text-base text-gray-700">
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />文案群：640064482</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />文案群：637076590</li>
                     </ul>
                 </div>
                 <div class="m-3 bg-white rounded-md shadow-sm overflow-hidden">
-                    <p class="text-gray-500 text-xs border-gray-100 border-b px-2.5 py-2.5">音乐服务</p>
+                    <p class="text-gray-500 text-xs border-gray-100 border-b px-2.5 py-2.5">服务支持</p>
                     <ul class="text-base text-gray-700">
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />我的信息</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />昵称：浅小沫</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />QQ：3201719830</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />邮箱：a@nai.cat</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />RUN BY VUE</li>
                     </ul>
                 </div>
                 <div class="m-3 bg-white rounded-md shadow-sm overflow-hidden">
