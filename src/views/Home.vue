@@ -85,7 +85,7 @@
         </div>
     </div>
     <transition name="page">
-        <div class="fixed top-0 bottom-0 right-0 left-0 bg-white overscroll-contain" v-show="page_more">
+        <div class="fixed top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
             <div class="select-none h-10 px-3.5 bg-gray-100">
                 <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
             </div>
