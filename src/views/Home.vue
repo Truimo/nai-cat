@@ -1,5 +1,5 @@
 <template>
-    <Header v-bind:nav="nav" @toggle="tog" @clickLeft="right_menu = true" />
+    <Header v-bind:nav="nav" @toggle="tog" @clickLeft="right_menu = true" @clickRight="router.push('search')" />
     <RightMenu v-model:open="right_menu">
         <div class="bg-gray-50 h-full w-full overflow-y-scroll overscroll-contain" @scroll.stop="menu_scroll">
             <div class="px-3.5 h-12 flex items-center fixed top-0 right-0 left-0 transition" :class="{'bg-white': menu_user_bg}">
@@ -127,6 +127,7 @@
 
 <script>
 import {ref} from 'vue'
+import router from '@/router'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -243,7 +244,7 @@ export default {
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            ranking_day, get_ranking_day, pad, ranking, get_ranking
+            ranking_day, get_ranking_day, pad, ranking, get_ranking, router
         }
     }
 }

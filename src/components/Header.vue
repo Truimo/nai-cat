@@ -9,7 +9,7 @@
                     <a class="p-1.5 text-black text-opacity-90 hover:text-opacity-82 cursor-pointer" :class="{'text-red-600':index === choose}">{{item.name}}</a>
                 </li>
             </ul>
-            <a class="inline-block h-7 w-7 rounded-full align-middle text-center text-white bg-rose-500">
+            <a class="inline-block h-7 w-7 rounded-full align-middle text-center text-white bg-rose-500" @click="right">
                 <font-awesome-icon icon="search" class="align-middle text-xs" />
             </a>
         </nav>
@@ -33,8 +33,11 @@ export default {
         const left = () => {
             emit('clickLeft')
         }
+        const right = () => {
+            emit('clickRight')
+        }
         return {
-            choose, check, left
+            choose, check, left, right
         }
     }
 }
