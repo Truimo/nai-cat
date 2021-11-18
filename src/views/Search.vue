@@ -57,7 +57,8 @@ export default {
             try {
                 content = content.replace(/\r\n/g, '<br/>')
                 content = content.replace(/\n/g, '<br/>')
-                content = content.replace(/\[CQ:.+\]/, '<i class="text-gray-400">NaN</i>')
+                content = content.replace(/\[CQ:.+\]/g, '<i class="text-gray-400">NaN</i>')
+                content = content.replace(new RegExp(keyword_search,'g'), '<em class="bg-yellow-100 not-italic">$&</em>')
             } catch (e) {
                 console.log('解析出错')
             }
