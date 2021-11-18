@@ -1,10 +1,12 @@
 <template>
-    <div class="select-none h-10 bg-gray-100 px-3.5 flex flex-row items-center justify-between text-sm">
-        <div class="h-7 leading-7 w-3 mr-1.5" @click="router.push('/')">
-            <font-awesome-icon icon="angle-left" />
+    <div class="select-none h-10">
+        <div class="fixed top-0 left-0 right-0 h-10 px-3.5 flex flex-row items-center justify-between text-sm bg-gray-100">
+            <div class="h-7 leading-7 w-3 mr-1.5" @click="router.push('/')">
+                <font-awesome-icon icon="angle-left" />
+            </div>
+            <input class="w-full h-7 px-1.5 outline-none rounded-l" type="search" maxlength="20" placeholder="关键词搜索" v-model="keyword" @keyup.enter="submit">
+            <div class="w-1/6 h-7 leading-7 text-center flex-shrink-0 rounded-r transition-colors bg-gray-200 active:bg-gray-100" @click="submit">搜索</div>
         </div>
-        <input class="w-full h-7 px-1.5 outline-none rounded-l" type="search" maxlength="20" placeholder="关键词搜索" v-model="keyword" @keyup.enter="submit">
-        <div class="w-1/6 h-7 leading-7 text-center flex-shrink-0 rounded-r transition-colors bg-gray-200 active:bg-gray-100" @click="submit">搜索</div>
     </div>
     <div class="text-xs mx-3.5 py-2 text-gray-500">
         <p v-if="count > 0">为您找到相关结果约{{ count }}个</p>
