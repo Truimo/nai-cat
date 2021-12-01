@@ -1,4 +1,4 @@
-# yixi-vue
+# naicat-vue
 
 ## Project setup
 ```

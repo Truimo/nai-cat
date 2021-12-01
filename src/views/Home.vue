@@ -57,7 +57,7 @@
             </div>
         </div>
     </RightMenu>
-    <div class="container">
+    <div class="container mx-auto">
         <div v-if="postList.length > 0">
             <div class="p-3.5 bg-gray-100 border-b border-gray-200" v-for="(item, index) in postList" :key="index">
                 <div class="flex items-center">
