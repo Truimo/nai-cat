@@ -1,5 +1,5 @@
 <template>
-    <Header v-bind:nav="nav" @toggle="tog" @clickLeft="right_menu = true" @clickRight="router.push('search')" />
+    <Header :nav="nav" @toggle="tog" @clickLeft="right_menu = true" @clickRight="router.push('search')" />
     <RightMenu v-model:open="right_menu">
         <div class="bg-gray-50 h-full w-full overflow-y-scroll overscroll-contain" @scroll.stop="menu_scroll">
             <div class="px-3.5 h-12 flex items-center fixed top-0 right-0 left-0 transition" :class="{'bg-white': menu_user_bg}">
@@ -216,7 +216,7 @@ export default {
                     }
                 })
         }
-        get_ranking_day();
+        get_ranking_day()
         let ranking = ref([])  // 排行
         const get_ranking = () => {
             fetch('https://req.truimo.com/yixi/ranking.php')
