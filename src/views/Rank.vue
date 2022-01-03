@@ -28,7 +28,7 @@
             <p>1.一个月只能自主修改一次</p>
             <p>2.如果内容为空表示删除专属头衔</p>
             <p>3.QQ头衔的最大长度为6个字符，超出会被忽略</p>
-            <p>4.如果有问题，联系群主大大解决</p>
+            <p>4.如果有问题或者BUG，联系群主大大给你解决哦，QwQ</p>
         </div>
         <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-80 flex items-center justify-center"
              v-if="tip"
