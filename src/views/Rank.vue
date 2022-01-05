@@ -8,32 +8,34 @@
             <a class="flex-shrink-0 inline-block h-8 leading-8 align-middle" @click="set">完成</a>
         </nav>
     </header>
-    <div class="container mx-auto relative">
-        <div class="pt-2.5 px-3.5 h-10 flex items-center">
-            <div class="w-8 h-8 rounded-full overflow-hidden mr-2.5">
-                <img :src="'https://q1.qlogo.cn/g?b=qq&nk='+ info.user_id +'&s=640'" :alt="info.username">
+    <div class="container mx-auto">
+        <div class="relative">
+            <div class="pt-2.5 px-3.5 h-10 flex items-center">
+                <div class="w-8 h-8 rounded-full overflow-hidden mr-2.5">
+                    <img :src="'https://q1.qlogo.cn/g?b=qq&nk='+ info.user_id +'&s=640'" :alt="info.username">
+                </div>
+                <p class="text-sm">{{ info.username }}</p>
             </div>
-            <p class="text-sm">{{ info.username }}</p>
-        </div>
-        <div class="pt-2.5">
-            <input class="h-10 w-full px-3.5 outline-none"
-                   placeholder="头衔"
-                   autocapitalize="off" maxlength="20"
-                   @input="filter"
-                   v-model="val"
+            <div class="pt-2.5">
+                <input class="h-10 w-full px-3.5 outline-none"
+                       placeholder="头衔"
+                       autocapitalize="off" maxlength="20"
+                       @input="filter"
+                       v-model="val"
+                >
+                <p class="px-3.5 text-right text-xs mt-1" :class="{'text-red-500': num > 6}">{{ num }}/6</p>
+            </div>
+            <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-80 flex items-center justify-center"
+                 v-if="tip"
             >
-            <p class="px-3.5 text-right text-xs mt-1" :class="{'text-red-500': num > 6}">{{ num }}/6</p>
+                <p>{{ tip }}</p>
+            </div>
         </div>
         <div class="mt-20 px-3.5 text-sm text-gray-500">
             <p>1.一个月只能自主修改一次</p>
             <p>2.如果内容为空表示删除专属头衔</p>
             <p>3.QQ头衔的最大长度为6个字符，超出会被忽略</p>
             <p>4.如果有问题或者BUG，联系群主大大给你解决哦，QwQ</p>
-        </div>
-        <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-80 flex items-center justify-center"
-             v-if="tip"
-        >
-            <p>{{ tip }}</p>
         </div>
     </div>
 </template>
