@@ -49,6 +49,7 @@ import {onMounted, reactive, ref} from 'vue'
 export default {
     name: "Rank",
     setup() {
+        document.title = '专属头衔'
         const router = useRouter()
         const route = useRoute()
 

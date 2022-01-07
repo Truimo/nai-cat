@@ -53,6 +53,7 @@ dayjs.extend(relativeTime)
 export default {
     name: "Search",
     setup() {
+        document.title = '搜索'
         const moment = t => {  // 人性化时间
             return dayjs(dayjs.unix(t)).fromNow()
         }

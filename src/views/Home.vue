@@ -141,6 +141,7 @@ export default {
         Header, RightMenu
     },
     setup() {
+        document.title = '动态'
         const nav = [
             {
                 name: '动态',
