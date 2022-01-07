@@ -44,7 +44,7 @@
 <script>
 import Api from '@/request/api'
 import {useRoute, useRouter} from 'vue-router'
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 
 export default {
     name: "Rank",
@@ -90,7 +90,6 @@ export default {
                 }
             })
         }
-        get_token()
 
         const set = () => {
             if (!query.user_id || !query.token) {
@@ -110,6 +109,10 @@ export default {
                 }
             })
         }
+
+        onMounted(() => {
+            get_token()
+        })
 
         return {
             router, val, num, info, tip,
