@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Api from '@/request/api'
 import {useRoute, useRouter} from 'vue-router'
 import {reactive, ref} from 'vue'
 
@@ -74,18 +75,20 @@ export default {
                 tip.value = '未知信息'
                 return
             }
-            fetch('https://req.truimo.com/yixi/qq_token.php?user_id='+ query.user_id +'&token='+ query.token)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 0) {
-                        info.user_id = data.data.user_id
-                        info.username = data.data.nickname
-                        val.value = data.data.title
-                        tip.value = ''
-                    } else {
-                        tip.value = data.message
-                    }
-                })
+            Api.get('qq_token.php', {
+                user_id: query.user_id,
+                token: query.token
+            }).then(res => {
+                let data = res.data
+                if (data.code === 0) {
+                    info.user_id = data.data.user_id
+                    info.username = data.data.nickname
+                    val.value = data.data.title
+                    tip.value = ''
+                } else {
+                    tip.value = data.message
+                }
+            })
         }
         get_token()
 
@@ -94,15 +97,18 @@ export default {
                 tip.value = '未知信息'
                 return
             }
-            fetch('https://req.truimo.com/yixi/qq_title.php?user_id='+ query.user_id +'&token='+ query.token +'&tx='+ val.value)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 0) {
-                        alert('提交成功！')
-                    } else {
-                        alert(data.message)
-                    }
-                })
+            Api.get('qq_title.php', {
+                user_id: query.user_id,
+                token: query.token,
+                tx: val.value
+            }).then(res => {
+                let data = res.data
+                if (data.code === 0) {
+                    alert('提交成功！')
+                } else {
+                    alert(data.message)
+                }
+            })
         }
 
         return {

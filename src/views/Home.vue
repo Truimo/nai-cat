@@ -88,8 +88,8 @@
                 <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
             </div>
             <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600">今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
-            <ul v-if="ranking_day.length > 0">
-                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking_day" :key="index">
+            <ul v-if="ranking.day.length > 0">
+                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking.day" :key="index">
                     <div class="flex items-center">
                         <i>{{ pad(index +1) }}</i>
                         <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
@@ -104,8 +104,8 @@
                 <p class="text-center text-xs text-gray-600">没有内容哇</p>
             </div>
             <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600">总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
-            <ul v-if="ranking.length > 0">
-                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking" :key="index">
+            <ul v-if="ranking.all.length > 0">
+                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking.all" :key="index">
                     <div class="flex items-center">
                         <i>{{ pad(index +1) }}</i>
                         <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
@@ -124,8 +124,9 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import {ref, onMounted, reactive} from 'vue'
 import router from '@/router'
+import Api from '@/request/api'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -176,22 +177,23 @@ export default {
         let isEnd = ref(false)
         let postList = ref([])
         const loadPost = () => {
-            fetch('https://req.truimo.com/yixi/post.php?num=20&str='+ (page * 20))
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length < 1) {
-                        isEnd.value = true
-                        return
-                    }
-                    page++
-                    for (let i = 0; i < data.length; i++) {
-                        data[i].content = analysis(data[i].content)
-                        data[i].time = moment(data[i].time)
-                        postList.value.push(data[i])
-                    }
-                })
+            Api.get('post.php', {
+                num: 20,
+                str: page * 20
+            }).then(res => {
+                let data = res.data
+                if (data.length < 1) {
+                    isEnd.value = true
+                    return
+                }
+                page++
+                for (let i = 0; i < data.length; i++) {
+                    data[i].content = analysis(data[i].content)
+                    data[i].time = moment(data[i].time)
+                    postList.value.push(data[i])
+                }
+            })
         }
-        loadPost()
 
         const moment = t => {  // 人性化时间
             return dayjs(dayjs.unix(t)).fromNow()
@@ -199,40 +201,44 @@ export default {
 
         const tog = e => {
             if (e === 2) {
+                if (!ranking._nonce) {
+                    get_ranking()
+                    get_ranking_day()
+                    ranking._nonce = true
+                }
                 page_more.value = true
             }
-            console.log(e)
         }
 
         let page_more = ref(false)  // 更多页面
-        let ranking_day = ref([])  // 日排行
+        let ranking = reactive({
+            _nonce: false,  // 第一次
+            day: [],  // 日排行
+            all: []  // 全部排行
+        })
         const get_ranking_day = () => {
-            fetch('https://req.truimo.com/yixi/ranking_day.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length < 1) {
-                        return
-                    }
-                    if (typeof data === typeof ranking_day.value) {
-                        ranking_day.value = data
-                    }
-                })
+            Api.get('ranking_day.php').then(res => {
+                let data = res.data
+
+                if (data.length < 1) {
+                    return
+                }
+                if (typeof data === typeof ranking.day) {
+                    ranking.day = data
+                }
+            })
         }
-        get_ranking_day()
-        let ranking = ref([])  // 排行
         const get_ranking = () => {
-            fetch('https://req.truimo.com/yixi/ranking.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length < 1) {
-                        return
-                    }
-                    if (typeof data === typeof ranking.value) {
-                        ranking.value = data
-                    }
-                })
+            Api.get('ranking.php').then(res => {
+                let data = res.data
+                if (data.length < 1) {
+                    return
+                }
+                if (typeof data === typeof ranking.all) {
+                    ranking.all = data
+                }
+            })
         }
-        get_ranking()
 
         const pad = n => {  //补0
             let l = n.toString().length
@@ -242,9 +248,13 @@ export default {
             return n;
         }
 
+        onMounted(() => {
+            loadPost()  // 加载内容
+        })
+
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            ranking_day, get_ranking_day, pad, ranking, get_ranking, router
+            get_ranking_day, pad, ranking, get_ranking, router
         }
     }
 }

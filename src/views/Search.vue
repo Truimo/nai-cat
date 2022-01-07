@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import Api from '@/request/api'
 import router from '@/router'
 import {ref} from 'vue'
 import dayjs from 'dayjs'
@@ -72,35 +73,39 @@ export default {
         let count = ref(-1)
         const get_count = () => {
             if (count.value === -1 && keyword_search === '') return
-            fetch('https://req.truimo.com/yixi/search_count.php?keyword='+ keyword_search)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === -1) {
-                        count.value = 0
-                        return
-                    }
-                    count.value = parseInt(data.count)
-                })
+            Api.get('search_count.php', {
+                keyword: keyword_search
+            }).then(res => {
+                let data = res.data
+                if (data.code === -1) {
+                    count.value = 0
+                    return
+                }
+                count.value = parseInt(data.count)
+            })
         }
 
         let page = 0
         let isEnd = ref(false)
         let postList = ref([])
         const get_post = () => {
-            fetch('https://req.truimo.com/yixi/search.php?num=20&str='+ (page * 20) +'&keyword='+ keyword_search)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length < 1) {
-                        isEnd.value = true
-                        return
-                    }
-                    page++
-                    for (let i = 0; i < data.length; i++) {
-                        data[i].content = analysis(data[i].content)
-                        data[i].time = moment(data[i].time)
-                        postList.value.push(data[i])
-                    }
-                })
+            Api.get('search.php', {
+                num: 20,
+                str: page * 20,
+                keyword: keyword_search
+            }).then(res => {
+                let data = res.data
+                if (data.length < 1) {
+                    isEnd.value = true
+                    return
+                }
+                page++
+                for (let i = 0; i < data.length; i++) {
+                    data[i].content = analysis(data[i].content)
+                    data[i].time = moment(data[i].time)
+                    postList.value.push(data[i])
+                }
+            })
         }
 
         const submit = () => {
