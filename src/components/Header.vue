@@ -10,7 +10,7 @@
                 </li>
             </ul>
             <a class="inline-block h-7 w-7 rounded-full align-middle text-center text-white bg-rose-500" @click="right">
-                <font-awesome-icon icon="search" class="align-middle text-xs" />
+                <font-awesome-icon icon="search" class="align-middle text-xs h-7 w-7" />
             </a>
         </nav>
     </header>

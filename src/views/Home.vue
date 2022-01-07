@@ -145,7 +145,9 @@ export default {
                 name: '动态',
                 default: true
             },{
-                name: '更多'
+                name: '广场'
+            },{
+                name: '排行'
             }
         ]
         let right_menu = ref(false)
@@ -196,7 +198,7 @@ export default {
         }
 
         const tog = e => {
-            if (e === 1) {
+            if (e === 2) {
                 page_more.value = true
             }
             console.log(e)
