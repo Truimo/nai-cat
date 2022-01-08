@@ -59,14 +59,19 @@
     </RightMenu>
     <div class="container mx-auto">
         <div v-if="postList.length > 0">
-            <div class="p-3.5 bg-gray-100 border-b border-gray-200" v-for="(item, index) in postList" :key="index">
-                <div class="flex items-center select-none">
+            <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors active:bg-gray-300" v-for="(item, index) in postList" :key="index">
+                <div class="flex items-center select-none relative">
                     <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
                         <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
                     </div>
                     <div class="flex flex-col">
                         <p class="text-base text-blue-800">{{ item.username }}</p>
                         <p class="text-xs text-gray-400">{{ item.time }}</p>
+                    </div>
+                    <div class="absolute right-0 flex items-center">
+                        <div class="h4 w-4" @click.stop="copy(item.copy)">
+                            <img class="h-full w-full" src="../assets/images/fuzhi.png" alt="复制">
+                        </div>
                     </div>
                 </div>
                 <div class="mt-2 text-gray-900 text-base font-sans antialiased" v-html="item.content"></div>
@@ -189,6 +194,7 @@ export default {
                 }
                 page++
                 for (let i = 0; i < data.length; i++) {
+                    data[i].copy = data[i].content.replace(/\[CQ:.+\]/, 'NaN')
                     data[i].content = analysis(data[i].content)
                     data[i].time = moment(data[i].time)
                     postList.value.push(data[i])
@@ -248,6 +254,20 @@ export default {
             }
             return n;
         }
+        const copy = s => {
+            if (window.clipboardData) {
+                window.clipboardData.setData('text',s);
+            } else {
+                (s => {
+                    document.oncopy = e => {
+                        e.clipboardData.setData('text', s);
+                        e.preventDefault();
+                        document.oncopy=null;
+                    }
+                })(s);
+                document.execCommand('Copy');
+            }
+        }
 
         onMounted(() => {
             loadPost()  // 加载内容
@@ -255,7 +275,7 @@ export default {
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router
+            get_ranking_day, pad, ranking, get_ranking, router, copy
         }
     }
 }
