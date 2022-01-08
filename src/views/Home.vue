@@ -88,7 +88,7 @@
         </div>
     </div>
     <transition name="page">
-        <div class="fixed top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
+        <div class="fixed z-20 top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
             <div class="select-none h-10 px-3.5 bg-gray-100">
                 <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
             </div>
@@ -125,6 +125,9 @@
                 <p class="text-center text-xs text-gray-600">没有内容哇</p>
             </div>
         </div>
+    </transition>
+    <transition name="tip">
+        <div class="tooltips" v-show="_tip.show">{{ _tip.content }}</div>
     </transition>
 </template>
 
@@ -267,6 +270,22 @@ export default {
                 })(s);
                 document.execCommand('Copy');
             }
+            tip('复制成功')
+        }
+
+
+        let _tip = reactive({
+            time: null,
+            content: 'NULL',
+            show: false
+        })
+        const tip = s => {
+            clearTimeout(_tip.time)
+            _tip.content = s
+            _tip.show = true
+            _tip.time = setTimeout(() => {
+                _tip.show = false
+            }, 800)
         }
 
         onMounted(() => {
@@ -275,12 +294,12 @@ export default {
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy
+            get_ranking_day, pad, ranking, get_ranking, router, copy, _tip
         }
     }
 }
 </script>
-<style scoped>
+<style>
 .page-enter-active {
     @apply transition-transform ease-out duration-200;
 }
@@ -292,5 +311,34 @@ export default {
 }
 .page-enter-to, .page-leave-from {
     @apply transform-gpu translate-x-0;
+}
+
+.tip-enter-active {
+    @apply transition-opacity ease-out duration-200;
+}
+.tip-leave-active {
+    @apply transition-opacity ease-out duration-200;
+}
+.tip-enter-from, .tip-leave-to {
+    @apply transform-gpu opacity-0;
+}
+.tip-enter-to, .tip-leave-from {
+    @apply transform-gpu opacity-100;
+}
+
+.tooltips{
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    z-index: 100;
+    word-wrap: break-word;
+    word-break: break-all;
+    background-color: #00947e;
 }
 </style>

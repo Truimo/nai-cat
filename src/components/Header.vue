@@ -1,6 +1,6 @@
 <template>
     <header class="select-none h-10">
-        <nav class="fixed z-10 top-0 left-0 right-0 flex flex-row items-center justify-between px-3.5 bg-gray-100 h-10">
+        <nav class="z-10 fixed top-0 left-0 right-0 flex flex-row items-center justify-between px-3.5 bg-gray-100 h-10">
             <a class="inline-block h-8 w-8 align-middle text-center text-black" @click="left">
                 <font-awesome-icon icon="bars" class="align-bottom" />
             </a>

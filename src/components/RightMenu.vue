@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-0 bottom-0 left-0 right-0 select-none" v-show="right_menu_show">
+    <div class="fixed z-20 top-0 bottom-0 left-0 right-0 select-none" v-show="right_menu_show">
         <div class="absolute top-0 bottom-0 left-0 right-0 bg-black opacity-60 transition-opacity ease-in-out" :class="{'t_opacity-0': right_menu_transform === false}" @click="right_menu = false"></div>
         <div class="absolute top-0 bottom-0 left-0 right-24 bg-white transition-transform duration-200 ease-in-out transform" :class="{'-translate-x-80': right_menu_transform === false}">
             <slot></slot>
