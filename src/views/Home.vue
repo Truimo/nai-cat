@@ -59,7 +59,7 @@
     </RightMenu>
     <div class="container mx-auto">
         <div v-if="postList.length > 0">
-            <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors active:bg-gray-300" v-for="(item, index) in postList" :key="index">
+            <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in postList" :key="index">
                 <div class="flex items-center select-none relative">
                     <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
                         <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
