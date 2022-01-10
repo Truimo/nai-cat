@@ -127,7 +127,7 @@
         </div>
     </transition>
     <transition name="tip">
-        <div class="tooltips" v-show="_tip.show">{{ _tip.content }}</div>
+        <div class="tooltips" v-show="tip_obj.show">{{ tip_obj.content }}</div>
     </transition>
 </template>
 
@@ -262,32 +262,32 @@ export default {
         }
         const copy = s => {
             if (window.clipboardData) {
-                window.clipboardData.setData('text',s);
+                window.clipboardData.setData('text', s)
             } else {
                 (s => {
                     document.oncopy = e => {
-                        e.clipboardData.setData('text', s);
-                        e.preventDefault();
-                        document.oncopy=null;
+                        e.clipboardData.setData('text', s)
+                        e.preventDefault()
+                        document.oncopy = null
                     }
                 })(s);
-                document.execCommand('Copy');
+                document.execCommand('Copy')
             }
             tip('复制成功')
         }
 
 
-        let _tip = reactive({
+        let tip_obj = reactive({
             time: null,
             content: 'NULL',
             show: false
         })
         const tip = s => {
-            clearTimeout(_tip.time)
-            _tip.content = s
-            _tip.show = true
-            _tip.time = setTimeout(() => {
-                _tip.show = false
+            clearTimeout(tip_obj.time)
+            tip_obj.content = s
+            tip_obj.show = true
+            tip_obj.time = setTimeout(() => {
+                tip_obj.show = false
             }, 800)
         }
 
@@ -297,7 +297,7 @@ export default {
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy, _tip
+            get_ranking_day, pad, ranking, get_ranking, router, copy, tip_obj
         }
     }
 }

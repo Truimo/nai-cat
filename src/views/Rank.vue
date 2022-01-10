@@ -40,7 +40,7 @@
         </div>
     </div>
     <transition name="tip">
-        <div class="tooltips" v-show="_tip.show">{{ _tip.content }}</div>
+        <div class="tooltips" v-show="tip_obj.show">{{ tip_obj.content }}</div>
     </transition>
 </template>
 
@@ -115,17 +115,17 @@ export default {
             })
         }
 
-        let _tip = reactive({
+        let tip_obj = reactive({
             time: null,
             content: 'NULL',
             show: false
         })
         const tip = s => {
-            clearTimeout(_tip.time)
-            _tip.content = s
-            _tip.show = true
-            _tip.time = setTimeout(() => {
-                _tip.show = false
+            clearTimeout(tip_obj.time)
+            tip_obj.content = s
+            tip_obj.show = true
+            tip_obj.time = setTimeout(() => {
+                tip_obj.show = false
             }, 800)
         }
 
@@ -134,7 +134,7 @@ export default {
         })
 
         return {
-            router, val, num, info, tip_text, _tip,
+            router, val, num, info, tip_text, tip_obj,
             filter, set
         }
     }
