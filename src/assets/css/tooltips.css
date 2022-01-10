@@ -13,3 +13,27 @@
     word-break: break-all;
     background-color: #00947e;
 }
+.tooltips.success {
+    background-color: #06ae56;
+}
+.tooltips.info {
+    background-color: #00947e;
+}
+.tooltips.danger {
+    background-color: #fa5151;
+}
+.tooltips.warn {
+    background-color: #ffc300;
+}
+.tip-enter-active {
+    @apply transition-opacity ease-out duration-200;
+}
+.tip-leave-active {
+    @apply transition-opacity ease-out duration-200;
+}
+.tip-enter-from, .tip-leave-to {
+    @apply transform-gpu opacity-0;
+}
+.tip-enter-to, .tip-leave-from {
+    @apply transform-gpu opacity-100;
+}

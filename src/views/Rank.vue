@@ -118,10 +118,14 @@ export default {
         let tip = reactive({
             time: null,
             content: 'NULL',
+            type: 'info',
             show: false,
-            msg: s => {
+            msg: (s, t) => {
                 clearTimeout(tip.time)
                 tip.content = s
+                if (t === 'success' || t === 'info' || t === 'danger' || t === 'warn') {
+                    tip.type = t
+                }
                 tip.show = true
                 tip.time = setTimeout(() => {
                     tip.show = false

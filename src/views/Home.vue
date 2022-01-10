@@ -127,7 +127,7 @@
         </div>
     </transition>
     <transition name="tip">
-        <div class="tooltips" v-show="tip.show">{{ tip.content }}</div>
+        <div class="tooltips" v-show="tip.show" :class="tip.type">{{ tip.content }}</div>
     </transition>
 </template>
 
@@ -280,10 +280,14 @@ export default {
         let tip = reactive({
             time: null,
             content: 'NULL',
+            type: 'info',
             show: false,
-            msg: s => {
+            msg: (s, t) => {
                 clearTimeout(tip.time)
                 tip.content = s
+                if (t === 'success' || t === 'info' || t === 'danger' || t === 'warn') {
+                    tip.type = t
+                }
                 tip.show = true
                 tip.time = setTimeout(() => {
                     tip.show = false
@@ -314,18 +318,5 @@ export default {
 }
 .page-enter-to, .page-leave-from {
     @apply transform-gpu translate-x-0;
-}
-
-.tip-enter-active {
-    @apply transition-opacity ease-out duration-200;
-}
-.tip-leave-active {
-    @apply transition-opacity ease-out duration-200;
-}
-.tip-enter-from, .tip-leave-to {
-    @apply transform-gpu opacity-0;
-}
-.tip-enter-to, .tip-leave-from {
-    @apply transform-gpu opacity-100;
 }
 </style>
