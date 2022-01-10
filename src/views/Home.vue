@@ -90,12 +90,12 @@
     <transition name="page">
         <div class="fixed z-20 top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
             <div class="h-10">
-                <div class="select-none h-10 px-3.5 bg-gray-100 fixed top-0 left-0 right-0">
+                <div class="select-none h-10 px-3.5 bg-gray-100 fixed top-0 left-0 right-0 z-20">
                     <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
                 </div>
             </div>
             <section>
-                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10">今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
+                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10 z-10">今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
                 <ul v-if="ranking.day.length > 0">
                     <li class="flex items-center justify-between py-2.5 px-3.5 border-t border-gray-200" v-for="(item, index) in ranking.day" :key="index">
                         <div class="flex items-center">
@@ -113,7 +113,7 @@
                 </div>
             </section>
             <section>
-                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10">总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
+                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10 z-10">总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
                 <ul v-if="ranking.all.length > 0">
                     <li class="flex items-center justify-between py-2.5 px-3.5 border-t border-gray-200" v-for="(item, index) in ranking.all" :key="index">
                         <div class="flex items-center">
