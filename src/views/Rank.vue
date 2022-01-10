@@ -26,9 +26,9 @@
                 <p class="px-3.5 text-right text-xs mt-1" :class="{'text-red-500': num > 6}">{{ num }}/6</p>
             </div>
             <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-80 flex items-center justify-center"
-                 v-if="tip"
+                 v-if="tip_text"
             >
-                <p>{{ tip }}</p>
+                <p>{{ tip_text }}</p>
             </div>
         </div>
         <div class="mt-20 px-3.5 text-sm text-gray-500">
@@ -39,12 +39,16 @@
             <p>5.如果有问题或者BUG，联系群主大大给你解决哦，QwQ</p>
         </div>
     </div>
+    <transition name="tip">
+        <div class="tooltips" v-show="_tip.show">{{ _tip.content }}</div>
+    </transition>
 </template>
 
 <script>
 import Api from '@/request/api'
 import {useRoute, useRouter} from 'vue-router'
 import {onMounted, reactive, ref} from 'vue'
+import '@/assets/css/tooltips.css'
 
 export default {
     name: "Rank",
@@ -69,11 +73,11 @@ export default {
             token: route.query.t
         }
 
-        let tip = ref('加载中')
+        let tip_text = ref('加载中')
 
         const get_token = () => {
             if (!query.user_id || !query.token) {
-                tip.value = '未知信息'
+                tip_text.value = '未知信息'
                 return
             }
             Api.get('qq_token.php', {
@@ -85,16 +89,16 @@ export default {
                     info.user_id = data.data.user_id
                     info.username = data.data.nickname
                     val.value = data.data.title
-                    tip.value = ''
+                    tip_text.value = ''
                 } else {
-                    tip.value = data.message
+                    tip_text.value = data.message
                 }
             })
         }
 
         const set = () => {
             if (!query.user_id || !query.token) {
-                tip.value = '未知信息'
+                tip_text.value = '未知信息'
                 return
             }
             Api.get('qq_title.php', {
@@ -104,11 +108,25 @@ export default {
             }).then(res => {
                 let data = res.data
                 if (data.code === 0) {
-                    alert('提交成功！')
+                    tip('提交成功！')
                 } else {
-                    alert(data.message)
+                    tip(data.message)
                 }
             })
+        }
+
+        let _tip = reactive({
+            time: null,
+            content: 'NULL',
+            show: false
+        })
+        const tip = s => {
+            clearTimeout(_tip.time)
+            _tip.content = s
+            _tip.show = true
+            _tip.time = setTimeout(() => {
+                _tip.show = false
+            }, 800)
         }
 
         onMounted(() => {
@@ -116,7 +134,7 @@ export default {
         })
 
         return {
-            router, val, num, info, tip,
+            router, val, num, info, tip_text, _tip,
             filter, set
         }
     }

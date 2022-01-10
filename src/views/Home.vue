@@ -142,6 +142,7 @@ import Header from '@/components/Header'
 import RightMenu from '@/components/RightMenu'
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
+import '@/assets/css/tooltips.css'
 
 export default {
     name: 'Home',
@@ -324,21 +325,5 @@ export default {
 }
 .tip-enter-to, .tip-leave-from {
     @apply transform-gpu opacity-100;
-}
-
-.tooltips{
-    position: fixed;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 14px;
-    text-align: center;
-    color: #fff;
-    z-index: 100;
-    word-wrap: break-word;
-    word-break: break-all;
-    background-color: #00947e;
 }
 </style>
