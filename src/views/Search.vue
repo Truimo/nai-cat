@@ -47,6 +47,7 @@ import {ref} from 'vue'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import htmlspecialchars from '@/module/htmlspecialchars'
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 
@@ -59,6 +60,7 @@ export default {
         }
         const analysis = (content) => {  // 解析
             try {
+                content = htmlspecialchars(content)
                 content = content.replace(/\r\n/g, '<br/>')
                 content = content.replace(/\n/g, '<br/>')
                 content = content.replace(/\[CQ:.+\]/g, '<i class="text-gray-400">NaN</i>')
