@@ -89,41 +89,47 @@
     </div>
     <transition name="page">
         <div class="fixed z-20 top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
-            <div class="select-none h-10 px-3.5 bg-gray-100">
-                <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
+            <div class="h-10">
+                <div class="select-none h-10 px-3.5 bg-gray-100 fixed top-0 left-0 right-0">
+                    <div class="h-full leading-10"><span @click="page_more = false"><font-awesome-icon icon="angle-left" class="mr-1.5" />返回</span></div>
+                </div>
             </div>
-            <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600">今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
-            <ul v-if="ranking.day.length > 0">
-                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking.day" :key="index">
-                    <div class="flex items-center">
-                        <i>{{ pad(index +1) }}</i>
-                        <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
-                            <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+            <section>
+                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10">今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
+                <ul v-if="ranking.day.length > 0">
+                    <li class="flex items-center justify-between py-2.5 px-3.5 border-t border-gray-200" v-for="(item, index) in ranking.day" :key="index">
+                        <div class="flex items-center">
+                            <i>{{ pad(index +1) }}</i>
+                            <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
+                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                            </div>
+                            <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                         </div>
-                        <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
-                    </div>
-                    <p class="text-sm text-gray-400">{{ item.count }}条</p>
-                </li>
-            </ul>
-            <div v-else class="p-3.5">
-                <p class="text-center text-xs text-gray-600">没有内容哇</p>
-            </div>
-            <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600">总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
-            <ul v-if="ranking.all.length > 0">
-                <li class="flex items-center justify-between py-2.5 px-3.5 border-b border-gray-200" v-for="(item, index) in ranking.all" :key="index">
-                    <div class="flex items-center">
-                        <i>{{ pad(index +1) }}</i>
-                        <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
-                            <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                        <p class="text-sm text-gray-400">{{ item.count }}条</p>
+                    </li>
+                </ul>
+                <div v-else class="p-3.5">
+                    <p class="text-center text-xs text-gray-600">没有内容哇</p>
+                </div>
+            </section>
+            <section>
+                <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10">总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right" /></span></div>
+                <ul v-if="ranking.all.length > 0">
+                    <li class="flex items-center justify-between py-2.5 px-3.5 border-t border-gray-200" v-for="(item, index) in ranking.all" :key="index">
+                        <div class="flex items-center">
+                            <i>{{ pad(index +1) }}</i>
+                            <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
+                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                            </div>
+                            <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                         </div>
-                        <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
-                    </div>
-                    <p class="text-sm text-gray-400">{{ item.count }}条</p>
-                </li>
-            </ul>
-            <div v-else class="p-3.5">
-                <p class="text-center text-xs text-gray-600">没有内容哇</p>
-            </div>
+                        <p class="text-sm text-gray-400">{{ item.count }}条</p>
+                    </li>
+                </ul>
+                <div v-else class="p-3.5">
+                    <p class="text-center text-xs text-gray-600">没有内容哇</p>
+                </div>
+            </section>
         </div>
     </transition>
     <transition name="tip">
