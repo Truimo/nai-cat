@@ -40,7 +40,7 @@
         </div>
     </div>
     <transition name="tip">
-        <div class="tooltips" v-show="tip_obj.show">{{ tip_obj.content }}</div>
+        <div class="tooltips" v-show="tip.show">{{ tip.content }}</div>
     </transition>
 </template>
 
@@ -108,33 +108,33 @@ export default {
             }).then(res => {
                 let data = res.data
                 if (data.code === 0) {
-                    tip('提交成功！')
+                    tip.msg('提交成功！')
                 } else {
-                    tip(data.message)
+                    tip.msg(data.message)
                 }
             })
         }
 
-        let tip_obj = reactive({
+        let tip = reactive({
             time: null,
             content: 'NULL',
-            show: false
+            show: false,
+            msg: s => {
+                clearTimeout(tip.time)
+                tip.content = s
+                tip.show = true
+                tip.time = setTimeout(() => {
+                    tip.show = false
+                }, 800)
+            }
         })
-        const tip = s => {
-            clearTimeout(tip_obj.time)
-            tip_obj.content = s
-            tip_obj.show = true
-            tip_obj.time = setTimeout(() => {
-                tip_obj.show = false
-            }, 800)
-        }
 
         onMounted(() => {
             get_token()
         })
 
         return {
-            router, val, num, info, tip_text, tip_obj,
+            router, val, num, info, tip_text, tip,
             filter, set
         }
     }

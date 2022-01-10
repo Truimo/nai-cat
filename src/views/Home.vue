@@ -127,7 +127,7 @@
         </div>
     </transition>
     <transition name="tip">
-        <div class="tooltips" v-show="tip_obj.show">{{ tip_obj.content }}</div>
+        <div class="tooltips" v-show="tip.show">{{ tip.content }}</div>
     </transition>
 </template>
 
@@ -273,23 +273,23 @@ export default {
                 })(s);
                 document.execCommand('Copy')
             }
-            tip('复制成功')
+            tip.msg('复制成功')
         }
 
 
-        let tip_obj = reactive({
+        let tip = reactive({
             time: null,
             content: 'NULL',
-            show: false
+            show: false,
+            msg: s => {
+                clearTimeout(tip.time)
+                tip.content = s
+                tip.show = true
+                tip.time = setTimeout(() => {
+                    tip.show = false
+                }, 800)
+            }
         })
-        const tip = s => {
-            clearTimeout(tip_obj.time)
-            tip_obj.content = s
-            tip_obj.show = true
-            tip_obj.time = setTimeout(() => {
-                tip_obj.show = false
-            }, 800)
-        }
 
         onMounted(() => {
             loadPost()  // 加载内容
@@ -297,7 +297,7 @@ export default {
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy, tip_obj
+            get_ranking_day, pad, ranking, get_ranking, router, copy, tip
         }
     }
 }
