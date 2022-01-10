@@ -213,8 +213,10 @@ export default {
         const tog = e => {
             if (e === 2) {
                 if (!ranking._nonce) {
-                    get_ranking()
-                    get_ranking_day()
+                    setTimeout(() => {  // 避免和动画
+                        get_ranking()
+                        get_ranking_day()
+                    }, 200)
                     ranking._nonce = true
                 }
                 page_more.value = true
