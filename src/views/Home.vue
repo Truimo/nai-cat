@@ -74,23 +74,7 @@
                 error-text="请求失败，点击重新加载"
                 @load="post_loader"
             >
-                <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in post.list" :key="index">
-                    <div class="flex items-center select-none relative">
-                        <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
-                            <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
-                        </div>
-                        <div class="flex flex-col">
-                            <p class="text-base text-blue-800">{{ item.username }}</p>
-                            <p class="text-xs text-gray-400">{{ item.time }}</p>
-                        </div>
-                        <div class="absolute right-0 flex items-center">
-                            <div class="h4 w-4" @click.stop="copy(item.copy)">
-                                <img class="h-full w-full" src="../assets/images/fuzhi.png" alt="复制">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-gray-900 text-base font-sans antialiased overflow-hidden break-normal" v-html="item.content"></div>
-                </div>
+                <post-cell v-for="(item, index) in post.list" :key="index" :data="item" />
             </van-list>
         </van-pull-refresh>
     </div>
@@ -142,8 +126,8 @@
 </template>
 
 <script>
-import {ref, onMounted, reactive, watch} from 'vue'
-import { Toast, List, PullRefresh } from 'vant'
+import {ref, reactive, watch} from 'vue'
+import {List, PullRefresh } from 'vant'
 import router from '@/router'
 import Api from '@/request/api'
 import dayjs from 'dayjs'
@@ -154,10 +138,12 @@ import RightMenu from '@/components/RightMenu'
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 import htmlspecialchars from '@/module/htmlspecialchars'
+import PostCell from '@/components/PostCell'
 
 export default {
     name: 'Home',
     components: {
+        PostCell,
         [PullRefresh.name]: PullRefresh,
         [List.name]: List,
         Header, RightMenu
@@ -309,36 +295,14 @@ export default {
             }
             return n;
         }
-        const copy = s => {
-            if (window.clipboardData) {
-                window.clipboardData.setData('text', s)
-            } else {
-                (s => {
-                    document.oncopy = e => {
-                        e.clipboardData.setData('text', s)
-                        e.preventDefault()
-                        document.oncopy = null
-                    }
-                })(s);
-                document.execCommand('Copy')
-            }
-            Toast({
-                message: '复制成功',
-                position: 'bottom',
-            });
-        }
 
         const jump = (href, target) => {
             window.open(href, target)
         }
 
-        onMounted(() => {
-            //
-        })
-
         return {
             nav, right_menu, menu_scroll, menu_user_bg, post, post_loader, post_refresh, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy, jump
+            get_ranking_day, pad, ranking, get_ranking, router, jump
         }
     }
 }
