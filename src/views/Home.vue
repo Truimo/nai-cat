@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-2 text-gray-900 text-base font-sans antialiased" v-html="item.content"></div>
+                <div class="mt-2 text-gray-900 text-base font-sans antialiased overflow-hidden break-normal" v-html="item.content"></div>
             </div>
             <div class="p-3.5 bg-gray-100 active:bg-gray-300 transition cursor-not-allowed" v-if="isEnd">
                 <p class="text-center text-xs text-gray-600">没有更多啦</p>
@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import {ref, onMounted, reactive} from 'vue'
+import {ref, onMounted, reactive, watch} from 'vue'
 import router from '@/router'
 import Api from '@/request/api'
 import dayjs from 'dayjs'
@@ -260,6 +260,22 @@ export default {
                 }
             })
         }
+
+        watch(page_more, value => {
+            if (value) {
+                window.history.pushState({
+                    page: 'ranking',
+                    title: '排行榜'
+                },'排行榜' , location.href+'#ranking')
+            } else {
+                window.history.back()
+            }
+        })
+        window.addEventListener('popstate', () => {
+            if (page_more.value) {
+                page_more.value = false
+            }
+        }, false)
 
         const pad = n => {  //补0
             let l = n.toString().length
