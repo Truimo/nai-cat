@@ -58,6 +58,10 @@
         </div>
     </RightMenu>
     <div class="container mx-auto">
+        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both">
+            登录享用更多功能&ensp;<font-awesome-icon icon="angle-right" />
+            <span class="float-right"><font-awesome-icon icon="times-circle" /></span>
+        </div>
         <div v-if="postList.length > 0">
             <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in postList" :key="index">
                 <div class="flex items-center select-none relative">
@@ -101,7 +105,7 @@
                         <div class="flex items-center">
                             <i>{{ pad(index +1) }}</i>
                             <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
-                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
                             </div>
                             <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                         </div>
@@ -119,7 +123,7 @@
                         <div class="flex items-center">
                             <i>{{ pad(index +1) }}</i>
                             <div class="w-8 h-8 rounded-full overflow-hidden mx-2">
-                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                                <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
                             </div>
                             <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                         </div>

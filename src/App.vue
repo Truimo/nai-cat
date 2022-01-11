@@ -1,5 +1,10 @@
 <template>
     <router-view/>
+    <div class="fixed top-0 bottom-0 left-0 right-0 z-20 overscroll-contain">
+        <div class="absolute bottom-1/2 right-1/2 bg-white w-4/5 transform-gpu translate-y-1/2 translate-x-1/2">
+            cd
+        </div>
+    </div>
 </template>
 
 <style>
