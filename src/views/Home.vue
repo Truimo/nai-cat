@@ -14,8 +14,8 @@
                 <div class="m-3.5 bg-white rounded-md shadow-sm overflow-hidden">
                     <p class="text-gray-500 text-xs border-gray-100 border-b px-2.5 py-2.5">QQ群</p>
                     <ul class="text-base text-gray-700">
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />文案群：640064482</li>
-                        <li class="px-2.5 py-2 active:bg-gray-300"><font-awesome-icon icon="cog" class="mr-2" />文案群：637076590</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300" @click="jump('https://jq.qq.com/?_wv=1027&k=XecsCBlp', '_block')"><font-awesome-icon icon="cog" class="mr-2" />文案群：640064482</li>
+                        <li class="px-2.5 py-2 active:bg-gray-300" @click="jump('https://jq.qq.com/?_wv=1027&k=mquWT8e0', '_block')"><font-awesome-icon icon="cog" class="mr-2" />文案群：637076590</li>
                     </ul>
                 </div>
                 <div class="m-3 bg-white rounded-md shadow-sm overflow-hidden">
@@ -62,7 +62,7 @@
             <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in postList" :key="index">
                 <div class="flex items-center select-none relative">
                     <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
-                        <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" alt="{{ item.username }}">
+                        <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
                     </div>
                     <div class="flex flex-col">
                         <p class="text-base text-blue-800">{{ item.username }}</p>
@@ -319,13 +319,17 @@ export default {
             }
         })
 
+        const jump = (href, target) => {
+            window.open(href, target)
+        }
+
         onMounted(() => {
             loadPost()  // 加载内容
         })
 
         return {
             nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy, tip
+            get_ranking_day, pad, ranking, get_ranking, router, copy, tip, jump
         }
     }
 }
