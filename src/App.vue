@@ -3,6 +3,10 @@
 </template>
 
 <style>
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
 body {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
