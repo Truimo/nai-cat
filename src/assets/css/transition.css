@@ -1,0 +1,13 @@
+.page-enter-active {
+    will-change: transform;
+    @apply transition-transform ease-out duration-200;
+}
+.page-leave-active {
+    @apply transition-transform ease-out duration-200;
+}
+.page-enter-from, .page-leave-to {
+    @apply transform-gpu translate-x-full;
+}
+.page-enter-to, .page-leave-from {
+    @apply transform-gpu translate-x-0;
+}

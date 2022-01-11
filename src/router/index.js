@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Home from '@/views/Home'
 import Search from '@/views/Search'
 import Rank from '@/views/Rank'
+import Miss from '@/views/Miss'
 
 const routes = [
     {
@@ -16,6 +17,10 @@ const routes = [
         path: '/rank',
         name: 'Rank',
         component: Rank
+    }, {
+        path: '/:catchAll(.*)',
+        name: 'miss',
+        component: Miss
     }
 ]
 

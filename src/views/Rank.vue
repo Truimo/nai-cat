@@ -39,16 +39,13 @@
             <p>5.如果有问题或者BUG，联系群主大大给你解决哦，QwQ</p>
         </div>
     </div>
-    <transition name="tip">
-        <div class="tooltips" v-show="tip.show">{{ tip.content }}</div>
-    </transition>
 </template>
 
 <script>
 import Api from '@/request/api'
 import {useRoute, useRouter} from 'vue-router'
 import {onMounted, reactive, ref} from 'vue'
-import '@/assets/css/tooltips.css'
+import { Toast } from 'vant'
 
 export default {
     name: "Rank",
@@ -108,37 +105,25 @@ export default {
             }).then(res => {
                 let data = res.data
                 if (data.code === 0) {
-                    tip.msg('提交成功！')
+                    Toast({
+                        message: '提交成功！',
+                        position: 'bottom',
+                    });
                 } else {
-                    tip.msg(data.message)
+                    Toast({
+                        message: data.message,
+                        position: 'bottom',
+                    });
                 }
             })
         }
-
-        let tip = reactive({
-            time: null,
-            content: 'NULL',
-            type: 'info',
-            show: false,
-            msg: (s, t) => {
-                clearTimeout(tip.time)
-                tip.content = s
-                if (t === 'success' || t === 'info' || t === 'danger' || t === 'warn') {
-                    tip.type = t
-                }
-                tip.show = true
-                tip.time = setTimeout(() => {
-                    tip.show = false
-                }, 800)
-            }
-        })
 
         onMounted(() => {
             get_token()
         })
 
         return {
-            router, val, num, info, tip_text, tip,
+            router, val, num, info, tip_text,
             filter, set
         }
     }

@@ -58,38 +58,41 @@
         </div>
     </RightMenu>
     <div class="container mx-auto">
-        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both">
+        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both hidden">
             登录享用更多功能&ensp;<font-awesome-icon icon="angle-right" />
             <span class="float-right"><font-awesome-icon icon="times-circle" /></span>
         </div>
-        <div v-if="postList.length > 0">
-            <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in postList" :key="index">
-                <div class="flex items-center select-none relative">
-                    <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
-                        <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-base text-blue-800">{{ item.username }}</p>
-                        <p class="text-xs text-gray-400">{{ item.time }}</p>
-                    </div>
-                    <div class="absolute right-0 flex items-center">
-                        <div class="h4 w-4" @click.stop="copy(item.copy)">
-                            <img class="h-full w-full" src="../assets/images/fuzhi.png" alt="复制">
+        <van-pull-refresh
+            v-model="post.refreshing"
+            @refresh="post_refresh"
+            success-text="刷新成功"
+        >
+            <van-list
+                v-model:loading="post.loading"
+                :finished="post.finished"
+                finished-text="没有更多了"
+                error-text="请求失败，点击重新加载"
+                @load="post_loader"
+            >
+                <div class="p-3.5 bg-gray-100 border-b border-gray-200 transition-colors" v-for="(item, index) in post.list" :key="index">
+                    <div class="flex items-center select-none relative">
+                        <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
+                            <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ item.user_id +'&s=640'" :alt="item.username">
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-base text-blue-800">{{ item.username }}</p>
+                            <p class="text-xs text-gray-400">{{ item.time }}</p>
+                        </div>
+                        <div class="absolute right-0 flex items-center">
+                            <div class="h4 w-4" @click.stop="copy(item.copy)">
+                                <img class="h-full w-full" src="../assets/images/fuzhi.png" alt="复制">
+                            </div>
                         </div>
                     </div>
+                    <div class="mt-2 text-gray-900 text-base font-sans antialiased overflow-hidden break-normal" v-html="item.content"></div>
                 </div>
-                <div class="mt-2 text-gray-900 text-base font-sans antialiased overflow-hidden break-normal" v-html="item.content"></div>
-            </div>
-            <div class="p-3.5 bg-gray-100 active:bg-gray-300 transition cursor-not-allowed" v-if="isEnd">
-                <p class="text-center text-xs text-gray-600">没有更多啦</p>
-            </div>
-            <div class="p-3.5 bg-gray-100 active:bg-gray-300 transition cursor-pointer" @click="loadPost" v-else>
-                <p class="text-center text-xs text-gray-600">加载更多</p>
-            </div>
-        </div>
-        <div v-else class="p-3.5">
-            <p class="text-center text-xs text-gray-600">没有内容哇</p>
-        </div>
+            </van-list>
+        </van-pull-refresh>
     </div>
     <transition name="page">
         <div class="fixed z-20 top-0 bottom-0 right-0 left-0 bg-white overflow-y-scroll overscroll-contain" v-show="page_more">
@@ -136,13 +139,11 @@
             </section>
         </div>
     </transition>
-    <transition name="tip">
-        <div class="tooltips" v-show="tip.show" :class="tip.type">{{ tip.content }}</div>
-    </transition>
 </template>
 
 <script>
 import {ref, onMounted, reactive, watch} from 'vue'
+import { Toast, List, PullRefresh } from 'vant'
 import router from '@/router'
 import Api from '@/request/api'
 import dayjs from 'dayjs'
@@ -152,12 +153,13 @@ import Header from '@/components/Header'
 import RightMenu from '@/components/RightMenu'
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
-import '@/assets/css/tooltips.css'
 import htmlspecialchars from '@/module/htmlspecialchars'
 
 export default {
     name: 'Home',
     components: {
+        [PullRefresh.name]: PullRefresh,
+        [List.name]: List,
         Header, RightMenu
     },
     setup() {
@@ -183,6 +185,9 @@ export default {
             }
         }
 
+        const moment = t => {  // 人性化时间
+            return dayjs(dayjs.unix(t)).fromNow()
+        }
         const analysis = (content) => {  // 解析
             try {
                 content = htmlspecialchars(content)
@@ -194,32 +199,47 @@ export default {
             }
             return content
         }
-
-        let page = 0
-        let isEnd = ref(false)
-        let postList = ref([])
-        const loadPost = () => {
+        const post = reactive({
+            num: 20, // 加载数量
+            page: 0,  // 页数
+            loading: false,  // 加载状态
+            refreshing: false,  // 刷新状态
+            finished: false,  // 加载完毕
+            error: false,
+            list: [] // 列表
+        })
+        const post_loader = () => {
+            if (post.refreshing) {
+                post.page = 0
+            }
             Api.get('post.php', {
-                num: 20,
-                str: page * 20
+                num: post.num,
+                str: post.page * 20
             }).then(res => {
                 let data = res.data
                 if (data.length < 1) {
-                    isEnd.value = true
+                    post.finished = true
                     return
                 }
-                page++
+                if (post.refreshing) {
+                    post.refreshing = false
+                }
+                post.page++
                 for (let i = 0; i < data.length; i++) {
                     data[i].copy = data[i].content.replace(/\[CQ:.+\]/, 'NaN')
                     data[i].content = analysis(data[i].content)
                     data[i].time = moment(data[i].time)
-                    postList.value.push(data[i])
+                    post.list.push(data[i])
                 }
+                post.loading = false
+            }).catch(() => {
+                post.error = true
             })
         }
-
-        const moment = t => {  // 人性化时间
-            return dayjs(dayjs.unix(t)).fromNow()
+        const post_refresh = () => {
+            post.refreshing = false
+            post.loading = true
+            post_loader()
         }
 
         const tog = e => {
@@ -301,54 +321,24 @@ export default {
                 })(s);
                 document.execCommand('Copy')
             }
-            tip.msg('复制成功')
+            Toast({
+                message: '复制成功',
+                position: 'bottom',
+            });
         }
-
-
-        let tip = reactive({
-            time: null,
-            content: 'NULL',
-            type: 'info',
-            show: false,
-            msg: (s, t) => {
-                clearTimeout(tip.time)
-                tip.content = s
-                if (t === 'success' || t === 'info' || t === 'danger' || t === 'warn') {
-                    tip.type = t
-                }
-                tip.show = true
-                tip.time = setTimeout(() => {
-                    tip.show = false
-                }, 800)
-            }
-        })
 
         const jump = (href, target) => {
             window.open(href, target)
         }
 
         onMounted(() => {
-            loadPost()  // 加载内容
+            //
         })
 
         return {
-            nav, right_menu, menu_scroll, menu_user_bg, postList, isEnd, loadPost, tog, moment, page_more,
-            get_ranking_day, pad, ranking, get_ranking, router, copy, tip, jump
+            nav, right_menu, menu_scroll, menu_user_bg, post, post_loader, post_refresh, tog, moment, page_more,
+            get_ranking_day, pad, ranking, get_ranking, router, copy, jump
         }
     }
 }
 </script>
-<style>
-.page-enter-active {
-    @apply transition-transform ease-out duration-200;
-}
-.page-leave-active {
-    @apply transition-transform ease-out duration-200;
-}
-.page-enter-from, .page-leave-to {
-    @apply transform-gpu translate-x-full;
-}
-.page-enter-to, .page-leave-from {
-    @apply transform-gpu translate-x-0;
-}
-</style>
