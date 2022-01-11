@@ -3,6 +3,7 @@ import Home from '@/views/Home'
 import Search from '@/views/Search'
 import Rank from '@/views/Rank'
 import Miss from '@/views/Miss'
+import Ranking from '@/views/Ranking'
 
 const routes = [
     {
@@ -13,6 +14,10 @@ const routes = [
         path: '/search',
         name: 'Search',
         component: Search
+    }, {
+        path: '/ranking',
+        name: 'Ranking',
+        component: Ranking
     }, {
         path: '/rank',
         name: 'Rank',
