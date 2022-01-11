@@ -8,6 +8,7 @@ html {
     -webkit-overflow-scrolling: touch;
 }
 body {
+    overscroll-behavior-y: contain;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
