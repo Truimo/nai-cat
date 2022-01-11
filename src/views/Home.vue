@@ -223,6 +223,7 @@ export default {
                 }
                 if (post.refreshing) {
                     post.refreshing = false
+                    post.list = []
                 }
                 post.page++
                 for (let i = 0; i < data.length; i++) {
