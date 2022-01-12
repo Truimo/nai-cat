@@ -58,7 +58,7 @@
         </div>
     </RightMenu>
     <div class="container mx-auto">
-        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both hidden">
+        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both">
             登录享用更多功能&ensp;<font-awesome-icon icon="angle-right" />
             <span class="float-right"><font-awesome-icon icon="times-circle" /></span>
         </div>
@@ -184,6 +184,7 @@ export default {
         }
         const post_refresh = () => {
             post.refreshing = true
+            post.finished = false
             post.loading = true
             post_loader()
         }

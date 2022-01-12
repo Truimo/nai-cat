@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <van-skeleton title avatar :row="3" :loading="post.loading">
+    <van-skeleton title avatar :row="2" :loading="post.loading">
         <div class="p-3.5 bg-gray-50">
             <div class="flex items-center select-none">
                 <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
