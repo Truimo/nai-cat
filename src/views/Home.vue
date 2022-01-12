@@ -58,7 +58,9 @@
         </div>
     </RightMenu>
     <div class="container mx-auto">
-        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both">
+        <div class="select-none cursor-pointer px-3.5 py-2 bg-blue-200 text-blue-600 text-sm sticky top-10 z-10 clear-both"
+             @click="login_popup_toggle(true)"
+        >
             登录享用更多功能&ensp;<font-awesome-icon icon="angle-right" />
             <span class="float-right"><font-awesome-icon icon="times-circle" /></span>
         </div>
@@ -81,7 +83,7 @@
 </template>
 
 <script>
-import {ref, reactive} from 'vue'
+import {ref, reactive, inject} from 'vue'
 import {List, PullRefresh } from 'vant'
 import {useRouter} from 'vue-router'
 import Api from '@/request/api'
@@ -199,9 +201,11 @@ export default {
             window.open(href, target)
         }
 
+        const login_popup_toggle = inject('login_popup_toggle')
+
         return {
             nav, right_menu, menu_scroll, menu_user_bg, post, post_loader, post_refresh, tog, moment,
-            router, jump
+            router, jump, login_popup_toggle
         }
     }
 }

@@ -4,25 +4,55 @@
             <component :is="Component"></component>
         </keep-alive>
     </router-view>
-    <div class="fixed top-0 bottom-0 left-0 right-0 z-20 overscroll-contain">
-        <div class="absolute bottom-1/2 right-1/2 bg-white w-4/5 transform-gpu translate-y-1/2 translate-x-1/2">
-            <van-cell-group inset>
-                <van-field label="文本" placeholder="请输入用户名" />
-            </van-cell-group>
+    <van-popup
+        v-model:show="login_popup_show"
+        :close-on-popstate="true"
+        :close-on-click-overlay="false"
+        :style="{
+            width: '88%',
+            borderRadius: '8px',
+            backgroundColor: '#ffffff'
+        }"
+        :overlay-style="{
+            backgroundColor: 'rgba(0,0,0,.2)'
+        }"
+    >
+        <div class="text-base font-bold text-gray-800 px-3.5 py-3 border-b">须要验证您的身份</div>
+        <div class="text-sm text-gray-600 p-3.5">请输入您从QQ群管理员处获得的令牌（token）以验证身份。</div>
+        <div class="px-3.5">
+            <input class="w-full text-sm px-2 py-1 border border-gray-300 focus:border-gray-600 transition-colors rounded-md placeholder-gray-300 text-gray-800" type="text" placeholder="请输入您的令牌……" autocomplete="off" name="token">
         </div>
-    </div>
+        <div class="px-3.5 pt-5 pb-3.5">
+            <div class="inline-block px-3 py-1.5 text-sm bg-blue-500 active:bg-blue-600 transition-colors text-white rounded-md"
+                 @click="login_popup_show = false"
+            >确定</div>
+            <div class="inline-block px-3 py-1.5 text-sm bg-gray-500 active:bg-gray-600 transition-colors text-white rounded-md ml-2.5"
+                 @click="login_popup_show = false"
+            >取消</div>
+        </div>
+    </van-popup>
 </template>
 
 <script>
-import { CellGroup, Field } from 'vant'
+import { Popup, CellGroup, Field } from 'vant'
+import { ref, provide } from 'vue'
 
 export default {
     components: {
+        [Popup.name]: Popup,
         [CellGroup.name]: CellGroup,
         [Field.name]: Field
     },
     setup() {
+        const login_popup_show = ref(false)
+        const login_popup_toggle = open => {
+            login_popup_show.value = open
+        }
+        provide('login_popup_toggle', login_popup_toggle)
 
+        return {
+            login_popup_show
+        }
     }
 }
 </script>
