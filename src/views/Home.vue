@@ -176,11 +176,14 @@ export default {
                 }
                 post.loading = false
             }).catch(() => {
+                if (post.refreshing) {
+                    post.refreshing = false
+                }
                 post.error = true
             })
         }
         const post_refresh = () => {
-            post.refreshing = false
+            post.refreshing = true
             post.loading = true
             post_loader()
         }
