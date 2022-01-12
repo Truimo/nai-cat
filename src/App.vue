@@ -34,6 +34,7 @@ html {
 }
 body {
     overscroll-behavior-y: contain;
+    overscroll-behavior-x: none;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

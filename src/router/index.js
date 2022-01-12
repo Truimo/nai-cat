@@ -4,6 +4,7 @@ import Search from '@/views/Search'
 import Rank from '@/views/Rank'
 import Miss from '@/views/Miss'
 import Ranking from '@/views/Ranking'
+import Post from '@/views/Post'
 
 const routes = [
     {
@@ -22,6 +23,10 @@ const routes = [
         path: '/rank',
         name: 'Rank',
         component: Rank
+    }, {
+        path: '/post/:id',
+        name: 'Post',
+        component: Post
     }, {
         path: '/:catchAll(.*)',
         name: 'miss',
