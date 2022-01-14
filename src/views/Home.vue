@@ -156,11 +156,20 @@ export default {
             if (post.refreshing) {
                 post.page = 0
             }
-            Api.get('post.php', {
+            Api.get('https://yx.api.truimo.com/', {
+                ver: 'v1',
+                controller: 'post',
+                function: 'list',
                 num: post.num,
                 str: post.page * 20
             }).then(res => {
-                let data = res.data
+                let data = res.data.data
+                if (res.data.code !== 0) {
+                    if (post.refreshing) {
+                        post.refreshing = false
+                    }
+                    post.error = true
+                }
                 if (data.length < 1) {
                     post.finished = true
                     return
