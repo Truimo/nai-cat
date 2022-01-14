@@ -1,4 +1,4 @@
-const cookie = {
+export const cookie = {
     set: (key, value) => {
         const exp = new Date()
         const Days = 30 * 12 * 10
@@ -24,7 +24,7 @@ const cookie = {
     }
 }
 
-const local = {
+export const local = {
     set: (key, value) => {
         window.localStorage.setItem(key, value)
     },
@@ -36,7 +36,7 @@ const local = {
     }
 }
 
-const session = {
+export const session = {
     set: (key, value) => {
         window.sessionStorage.setItem(key, value)
     },
@@ -46,8 +46,4 @@ const session = {
     remove: key => {
         window.sessionStorage.removeItem(key)
     }
-}
-
-export default {
-    cookie, local, session
 }
