@@ -92,12 +92,15 @@ export default {
         let isEnd = ref(false)
         let postList = ref([])
         const get_post = () => {
-            Api.get('search.php', {
+            Api.get('https://yx.api.truimo.com/', {
+                ver: 'v1',
+                controller: 'post',
+                function: 'search',
                 num: 20,
                 str: page * 20,
                 keyword: keyword_search
             }).then(res => {
-                let data = res.data
+                let data = res.data.data
                 if (data.length < 1) {
                     isEnd.value = true
                     return

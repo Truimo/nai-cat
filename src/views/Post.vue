@@ -75,8 +75,10 @@ export default {
         })
 
         const post_loader = () => {
-            console.log(post_id)
-            Api.get('get_post.php', {
+            Api.get('https://yx.api.truimo.com/', {
+                ver: 'v1',
+                controller: 'post',
+                function: 'get',
                 post_id: post_id
             }).then(res => {
                 res = res.data
@@ -99,7 +101,6 @@ export default {
                         }
                     });
                 }
-                console.log(res)
             })
         }
 
