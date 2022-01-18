@@ -71,7 +71,11 @@ export default {
             all: []  // 全部排行
         })
         const get_ranking_day = () => {
-            Api.get('ranking_day.php').then(res => {
+            Api.get('https://yx.api.truimo.com/', {
+                ver: 'v1',
+                controller: 'ranking',
+                function: 'day'
+            }).then(res => {
                 let data = res.data
                 if (data.length < 1) {
                     return
@@ -82,7 +86,11 @@ export default {
             })
         }
         const get_ranking = () => {
-            Api.get('ranking.php').then(res => {
+            Api.get('https://yx.api.truimo.com/', {
+                ver: 'v1',
+                controller: 'ranking',
+                function: 'all'
+            }).then(res => {
                 let data = res.data
                 if (data.length < 1) {
                     return
