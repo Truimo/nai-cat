@@ -18,7 +18,7 @@
                     </div>
                     <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                 </div>
-                <p class="text-sm text-gray-400">{{ item.count }}条</p>
+                <p class="text-sm text-gray-400 flex-shrink-0">{{ item.count }}条</p>
             </li>
         </ul>
         <div v-else class="p-3.5">
@@ -38,7 +38,7 @@
                     </div>
                     <p class="text-base text-blue-800 truncate">{{ item.username }}</p>
                 </div>
-                <p class="text-sm text-gray-400">{{ item.count }}条</p>
+                <p class="text-sm text-gray-400 flex-shrink-0">{{ item.count }}条</p>
             </li>
         </ul>
         <div v-else class="p-3.5">
