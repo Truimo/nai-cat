@@ -19,8 +19,8 @@
     >
         <div class="select-none text-base font-bold text-gray-800 px-3.5 py-3 border-b">须要验证您的身份</div>
         <div class="select-none text-sm text-gray-600 p-3.5">请输入您从QQ群管理员处获得的令牌（token）以验证身份。</div>
-        <div class="px-3.5">
-            <input class="w-full text-sm px-2 py-1 border border-gray-300 focus:border-gray-600 transition-colors rounded-md placeholder-gray-300 text-gray-800" type="text" placeholder="请输入您的令牌……" autocomplete="off" name="token">
+        <div class="px-3.5 flex items-center">
+            <img class="w-5 h-5 pointer-events-none mr-1.5" src="./assets/images/kouling.png" alt="token"><input class="w-full text-sm px-2 py-1 border border-gray-300 focus:border-gray-600 transition-colors rounded-md placeholder-gray-300 text-gray-800" type="text" placeholder="请输入您的令牌……" autocomplete="off" name="token">
         </div>
         <div class="select-none px-3.5 pt-5 pb-3.5">
             <div class="inline-block px-3 py-1.5 text-sm bg-blue-500 active:bg-blue-600 transition-colors text-white rounded-md"
