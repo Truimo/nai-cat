@@ -28,7 +28,7 @@
 
 <script>
 import {useRoute} from 'vue-router'
-import {reactive} from 'vue'
+import {onMounted, reactive} from 'vue'
 import Api from '@/request/api'
 
 export default {
@@ -59,6 +59,11 @@ export default {
             })
 
         }
+
+        onMounted(() => {
+            get_user()
+        })
+
 
         return {
             back, user
