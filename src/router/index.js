@@ -5,6 +5,7 @@ import Rank from '@/views/Rank'
 import Miss from '@/views/Miss'
 import Ranking from '@/views/Ranking'
 import Post from '@/views/Post'
+import User from '@/views/User'
 
 const routes = [
     {
@@ -27,6 +28,10 @@ const routes = [
         path: '/post/:id',
         name: 'Post',
         component: Post
+    },  {
+        path: '/user/:id',
+        name: 'Post',
+        component: User
     }, {
         path: '/:catchAll(.*)',
         name: 'miss',
