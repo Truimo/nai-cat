@@ -5,7 +5,7 @@
                                                                               class="mr-1.5"/>返回</span></div>
         </div>
     </div>
-    <section>
+    <section class="select-none">
         <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10 z-10">
             今日发言条数排名<span @click="get_ranking_day"><font-awesome-icon icon="redo-alt" pull="right"/></span></div>
         <ul v-if="ranking.day.length > 0">
@@ -25,7 +25,7 @@
             <p class="text-center text-xs text-gray-600">没有内容哇</p>
         </div>
     </section>
-    <section>
+    <section class="select-none">
         <div class="px-3.5 py-2.5 text-sm text-gray-500 border-l-4 border-red-600 bg-white sticky top-10 z-10">
             总发言条数排名<span @click="get_ranking"><font-awesome-icon icon="redo-alt" pull="right"/></span></div>
         <ul v-if="ranking.all.length > 0">
