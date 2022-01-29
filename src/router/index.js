@@ -21,17 +21,9 @@ const routes = [
         name: 'Ranking',
         component: Ranking
     }, {
-        path: '/rank',
-        name: 'Rank',
-        component: Rank
-    }, {
         path: '/post/:id',
         name: 'Post',
         component: Post
-    },  {
-        path: '/user/:group/:id',
-        name: 'User',
-        component: User
     }, {
         path: '/:catchAll(.*)',
         name: 'miss',

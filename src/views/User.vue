@@ -59,7 +59,6 @@ export default {
             })
 
         }
-        get_user()
 
         return {
             back, user
