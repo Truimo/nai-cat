@@ -133,22 +133,6 @@ export default {
 </script>
 
 <style scoped>
-.nc-por::before {
-    content: '';
-    display: block;
-    background-color: inherit;
-    border-radius: 50%;
-    opacity: .8;
-    @apply w-9 h-9 absolute bottom-1/2 right-1/2 transform-gpu translate-y-1/2 translate-x-1/2 scale-75;
-    will-change: transform, opacity, background-color;
-}
-.nc-por:active.nc-por::before {
-    background-color: rgba(0,0,0, .2);
-    transition: all ease-in-out 120ms;
-    opacity: 1;
-    @apply scale-100;
-}
-
 .van-tabs {
     --van-tabs-nav-background-color: #F9FAFB;
     --van-tabs-line-height: 2rem;

@@ -7,6 +7,7 @@ import '@/assets/css/transition.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faSearch,faPlus,faBars,faAngleRight,faAngleLeft,faCog,faRedoAlt,faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import '@/assets/css/style.css'
 
 library.add(faSearch, faPlus,faBars,faAngleRight,faAngleLeft,faCog,faRedoAlt,faTimesCircle)
 
