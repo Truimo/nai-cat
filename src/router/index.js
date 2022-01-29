@@ -29,8 +29,8 @@ const routes = [
         name: 'Post',
         component: Post
     },  {
-        path: '/user/:id',
-        name: 'Post',
+        path: '/user/:group/:id',
+        name: 'User',
         component: User
     }, {
         path: '/:catchAll(.*)',

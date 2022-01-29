@@ -156,7 +156,7 @@ export default {
             if (post.refreshing) {
                 post.page = 0
             }
-            Api.get('https://yx.api.truimo.com/', {
+            Api.get('/', {
                 ver: 'v1',
                 controller: 'post',
                 function: 'list',

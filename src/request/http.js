@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let instance = axios.create({
-    baseURL: 'https://req.truimo.com/yixi/',
+    baseURL: 'https://yx.api.truimo.com/',
     withCredentials: false
 })
 

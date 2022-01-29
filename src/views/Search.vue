@@ -76,7 +76,10 @@ export default {
         let count = ref(-1)
         const get_count = () => {
             if (count.value === -1 && keyword_search === '') return
-            Api.get('search_count.php', {
+            Api.get('/', {
+                ver: 'v1',
+                controller: 'post',
+                function: 'search_count',
                 keyword: keyword_search
             }).then(res => {
                 let data = res.data
@@ -84,7 +87,7 @@ export default {
                     count.value = 0
                     return
                 }
-                count.value = parseInt(data.count)
+                count.value = parseInt(data.data.count)
             })
         }
 
@@ -92,7 +95,7 @@ export default {
         let isEnd = ref(false)
         let postList = ref([])
         const get_post = () => {
-            Api.get('https://yx.api.truimo.com/', {
+            Api.get('/', {
                 ver: 'v1',
                 controller: 'post',
                 function: 'search',

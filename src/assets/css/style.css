@@ -13,3 +13,10 @@
     opacity: 1;
     @apply scale-100;
 }
+
+.nc_bg_img {
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

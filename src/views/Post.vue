@@ -75,7 +75,7 @@ export default {
         })
 
         const post_loader = () => {
-            Api.get('https://yx.api.truimo.com/', {
+            Api.get('/', {
                 ver: 'v1',
                 controller: 'post',
                 function: 'get',
