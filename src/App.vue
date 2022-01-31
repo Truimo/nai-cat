@@ -1,7 +1,7 @@
 <template>
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component, route }">
         <keep-alive include="Home,User">
-            <component :is="Component"></component>
+            <component :is="Component" :key="route.fullPath"></component>
         </keep-alive>
     </router-view>
     <van-popup
