@@ -12,7 +12,7 @@
         </div>
         <div class="mt-2 text-gray-900 text-base font-sans antialiased overflow-hidden break-normal"
              v-html="data.content"></div>
-        <div class="mt-2 text-xs flex justify-between items-center">
+        <div class="mt-2 text-xs flex justify-between items-center select-none">
             <p class="text-gray-600">浏览00次</p>
             <div class="flex items-center">
                 <p class="flex items-center text-sm"><img src="../assets/images/xihuan.png" class="w-4 h-4" alt="like"><img src="../assets/images/xihuan-b.png" class="w-4 h-4 hidden" alt="liked"><span class="ml-1">0</span></p>

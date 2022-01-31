@@ -87,15 +87,10 @@ import {ref, reactive, inject} from 'vue'
 import {List, PullRefresh } from 'vant'
 import {useRouter} from 'vue-router'
 import Api from '@/request/api'
-import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Header from '@/components/Header'
 import RightMenu from '@/components/RightMenu'
-dayjs.locale('zh-cn')
-dayjs.extend(relativeTime)
-import htmlspecialchars from '@/module/htmlspecialchars'
 import PostCell from '@/components/PostCell'
+import { analysis, moment } from '@/module/helper'
 
 export default {
     name: 'Home',
@@ -129,20 +124,6 @@ export default {
             }
         }
 
-        const moment = t => {  // 人性化时间
-            return dayjs(dayjs.unix(t)).fromNow()
-        }
-        const analysis = (content) => {  // 解析
-            try {
-                content = htmlspecialchars(content)
-                content = content.replace(/\r\n/g, '<br/>')
-                content = content.replace(/\n/g, '<br/>')
-                content = content.replace(/\[CQ:.+\]/, '<i class="text-gray-400">NaN</i>')
-            } catch (e) {
-                console.log('解析出错')
-            }
-            return content
-        }
         const post = reactive({
             num: 20, // 加载数量
             page: 0,  // 页数
