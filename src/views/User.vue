@@ -30,13 +30,14 @@
 import {useRoute} from 'vue-router'
 import {onMounted, reactive} from 'vue'
 import Api from '@/request/api'
+import { Toast } from 'vant'
 
 export default {
     name: "User",
     setup() {
         const route = useRoute()
-        const group_id = route.params.group
-        const post_id = route.params.id
+        const group_id = route.params.group_id
+        const user_id = route.params.user_id
         const back = () => {
             window.history.back()
         }
@@ -46,15 +47,21 @@ export default {
             user_id: 3201719830
         })
 
-        console.log(group_id, post_id)
-
         const get_user = () => {
             Api.get('/', {
                 ver: 'v1',
                 controller: 'user',
-                function: 'info'
+                function: 'info',
+                group_id: group_id,
+                user_id: user_id
             }).then(res => {
-
+                res = res.data
+                if (res.code === 0) {
+                    user.user_id = res.data.user_id
+                    user.username = res.data.card ? res.data.card : res.data.nickname
+                } else {
+                    Toast.fail(res.message)
+                }
                 console.log(res)
             })
 

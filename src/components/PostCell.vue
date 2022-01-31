@@ -1,6 +1,7 @@
 <template>
     <div class="p-3.5 bg-gray-100 border-b border-gray-200" @click="to({name: 'Post', params: {id: data.id}})">
-        <div class="flex items-center select-none">
+        <div class="flex items-center select-none"
+             @click.stop="to({name: 'User', params: {group_id: data.group_id, user_id: data.user_id}})">
             <div class="w-9 h-9 rounded-full overflow-hidden mr-2">
                 <img v-bind:src="'https://q1.qlogo.cn/g?b=qq&nk='+ data.user_id +'&s=640'" :alt="data.username">
             </div>

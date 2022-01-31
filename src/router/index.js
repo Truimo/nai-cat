@@ -29,7 +29,7 @@ const routes = [
         name: 'Post',
         component: Post
     },  {
-        path: '/user/:group/:id',
+        path: '/user/:group_id/:user_id',
         name: 'User',
         component: User
     }, {
