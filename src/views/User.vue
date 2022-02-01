@@ -90,7 +90,6 @@ export default {
                 } else {
                     Toast.fail(res.message)
                 }
-                console.log(res)
             })
 
         }
